@@ -2,21 +2,26 @@ package gika
 
 import (
 	"github.com/asalih/gika/handlers/archives"
+	"github.com/asalih/gika/handlers/disk"
 	"github.com/asalih/gika/handlers/text"
 	"github.com/asalih/gika/types"
 )
 
 var contentHandlersMap = map[string]types.IContentHandler{
+	"text/plain": &text.TextContentHandler{},
+
 	"application/zip":             &archives.ZipContentHandler{},
 	"application/gzip":            &archives.GzipContentHandler{},
 	"application/x-tar":           &archives.TarContentHandler{},
-	"text/plain":                  &text.TextContentHandler{},
 	"application/x-7z-compressed": &archives.UnarrContentHandler{},
 	"application/vnd.rar":         &archives.UnarrContentHandler{},
 	"application/x-bzip2":         &archives.BzipContentHandler{},
 	"application/x-xz":            &archives.XZContentHandler{},
 	"application/zstd":            &archives.ZstdContentHandler{},
 	"application/x-compress":      &archives.LzwContentHandler{},
+	"application/x-lzip":          &archives.LzipContentHandler{},
+
+	"application/x-iso9660-image": &disk.ISOContentHandler{},
 }
 
 type AutoDetectContentHandler struct {

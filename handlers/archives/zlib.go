@@ -22,7 +22,10 @@ func (t *ZlibContentHandler) HandleContent(context *types.GikaContext) (types.En
 	entries := make(types.Entries)
 
 	buf := new(bytes.Buffer)
-	buf.ReadFrom(archive)
+	_, err = buf.ReadFrom(archive)
+	if err != nil {
+		return nil, err
+	}
 
 	entries[context.FullPath] = buf.Bytes()
 

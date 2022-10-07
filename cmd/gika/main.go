@@ -32,7 +32,7 @@ func main() {
 	// defer fs.Close()
 	// fs.Write(buf.Bytes())
 
-	files, err := filepath.Glob("testdata/*.Z")
+	files, err := filepath.Glob("testdata/*.lz")
 	if err != nil {
 		panic(err)
 	}

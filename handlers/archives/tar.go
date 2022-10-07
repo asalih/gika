@@ -41,7 +41,11 @@ func (t *TarContentHandler) HandleContent(context *types.GikaContext) (types.Ent
 		// if it's a file create it
 		case tar.TypeReg:
 			buf := new(bytes.Buffer)
-			buf.ReadFrom(tr)
+			_, err := buf.ReadFrom(tr)
+			if err != nil {
+				return nil, err
+			}
+
 			entries[header.Name] = buf.Bytes()
 		}
 	}

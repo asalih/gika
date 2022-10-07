@@ -22,7 +22,10 @@ func (t *GzipContentHandler) HandleContent(context *types.GikaContext) (types.En
 	entries := make(types.Entries)
 
 	buf := new(bytes.Buffer)
-	buf.ReadFrom(gzr)
+	_, err = buf.ReadFrom(gzr)
+	if err != nil {
+		return nil, err
+	}
 
 	entries[context.FullPath] = buf.Bytes()
 

@@ -21,7 +21,10 @@ func (t *LzwContentHandler) HandleContent(context *types.GikaContext) (types.Ent
 	entries := make(types.Entries)
 
 	buf := new(bytes.Buffer)
-	buf.ReadFrom(comp)
+	_, err = buf.ReadFrom(comp)
+	if err != nil {
+		return nil, err
+	}
 
 	entries[context.FullPath] = buf.Bytes()
 

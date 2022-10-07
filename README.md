@@ -12,3 +12,4 @@ top layer of reading files
 - xz - application/x-xz
 - zstd - application/zstd
 - Z - application/x-compress
+- iso - application/x-iso9660-image

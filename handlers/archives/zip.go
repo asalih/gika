@@ -27,7 +27,11 @@ func (z *ZipContentHandler) HandleContent(context *types.GikaContext) (types.Ent
 		}
 
 		buf := new(bytes.Buffer)
-		buf.ReadFrom(file)
+		_, err = buf.ReadFrom(file)
+		if err != nil {
+			return nil, err
+		}
+
 		entries[zipFile.Name] = buf.Bytes()
 
 		file.Close()
