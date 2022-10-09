@@ -10,3 +10,8 @@ require (
 	github.com/klauspost/compress v1.15.11
 	github.com/ulikunitz/xz v0.5.10
 )
+
+require (
+	github.com/elliotchance/c2go v0.26.10 // indirect
+	golang.org/x/tools v0.1.12 // indirect
+)
