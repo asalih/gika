@@ -23,14 +23,13 @@ func Decode(reader io.ReadSeeker) (io.Reader, error) {
 }
 
 func validateAndReadSize(reader io.Reader) (int, error) {
-	size := 6
-	header := make([]byte, size)
+	header := make([]byte, lzma.HeaderLen)
 	c, err := reader.Read(header)
 	if err != nil {
 		return 0, err
 	}
 
-	if c != size {
+	if c != lzma.HeaderLen {
 		return 0, errors.New("invalid header size")
 	}
 

@@ -13,3 +13,7 @@ top layer of reading files
 - zstd - application/zstd
 - Z - application/x-compress
 - iso - application/x-iso9660-image
+- lz - application/x-lzip
+- a - application/x-unix-archive
+- docx - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+- xlsx - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
