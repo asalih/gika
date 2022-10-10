@@ -9,12 +9,15 @@ require (
 	github.com/h2non/filetype v1.1.3
 	github.com/kdomanski/iso9660 v0.3.3
 	github.com/klauspost/compress v1.15.11
+	github.com/pdfcpu/pdfcpu v0.3.13
 	github.com/ulikunitz/xz v0.5.10
 )
 
 require (
-	github.com/EndFirstCorp/peekingReader v0.0.0-20171012052444-257fb6f1a1a6 // indirect
-	github.com/gabriel-vasile/mimetype v1.4.1 // indirect
-	github.com/lu4p/cat v0.1.5 // indirect
-	golang.org/x/net v0.0.0-20221004154528-8021a29435af // indirect
+	github.com/hhrutter/lzw v0.0.0-20190829144645-6f07a24e8650 // indirect
+	github.com/hhrutter/tiff v0.0.0-20190829141212-736cae8d0bc7 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb // indirect
+	golang.org/x/text v0.3.7 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

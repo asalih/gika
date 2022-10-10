@@ -23,6 +23,7 @@ var contentHandlersMap = map[string]types.IContentHandler{
 	"application/x-lzip":          &archives.LzipContentHandler{},
 	"application/x-unix-archive":  &archives.ARContentHandler{},
 
+	"application/pdf": &doc.PDFContentHandler{},
 	"application/vnd.openxmlformats-officedocument.wordprocessingml.document": &doc.DocxContentHandler{},
 	"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":       &doc.XlsxContentHandler{},
 
