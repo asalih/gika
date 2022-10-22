@@ -32,7 +32,7 @@ func main() {
 	// defer fs.Close()
 	// fs.Write(buf.Bytes())
 
-	files, err := filepath.Glob("testdata/doc/*.pdf")
+	files, err := filepath.Glob("testdata/exec/*.msi")
 	if err != nil {
 		panic(err)
 	}

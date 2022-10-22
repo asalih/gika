@@ -4,6 +4,7 @@ import (
 	"github.com/asalih/gika/handlers/archives"
 	"github.com/asalih/gika/handlers/disk"
 	"github.com/asalih/gika/handlers/doc"
+	"github.com/asalih/gika/handlers/exec"
 	"github.com/asalih/gika/handlers/text"
 	"github.com/asalih/gika/types"
 )
@@ -24,10 +25,13 @@ var contentHandlersMap = map[string]types.IContentHandler{
 	"application/x-unix-archive":  &archives.ARContentHandler{},
 
 	"application/pdf": &doc.PDFContentHandler{},
-	"application/vnd.openxmlformats-officedocument.wordprocessingml.document": &doc.DocxContentHandler{},
-	"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":       &doc.XlsxContentHandler{},
+	"application/vnd.openxmlformats-officedocument.wordprocessingml.document":   &doc.DocxContentHandler{},
+	"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":         &doc.XlsxContentHandler{},
+	"application/vnd.openxmlformats-officedocument.presentationml.presentation": &doc.PptxContentHandler{},
 
 	"application/x-iso9660-image": &disk.ISOContentHandler{},
+
+	"application/x-msi": &exec.MsiContentHandler{},
 }
 
 type AutoDetectContentHandler struct {

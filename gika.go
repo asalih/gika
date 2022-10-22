@@ -3,6 +3,7 @@ package gika
 import (
 	"os"
 
+	"github.com/asalih/gika/pkg/matchers"
 	"github.com/asalih/gika/types"
 )
 
@@ -17,6 +18,9 @@ func New(contentHandler types.IContentHandler, path string) (*Gika, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	//register custom matchers
+	matchers.Register()
 
 	ctx, err := types.NewGikaContext(path, buf)
 	if err != nil {
