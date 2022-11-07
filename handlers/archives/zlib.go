@@ -11,9 +11,7 @@ type ZlibContentHandler struct {
 }
 
 func (t *ZlibContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	archive, err := zlib.NewReader(rdr)
+	archive, err := zlib.NewReader(context.Reader)
 	if err != nil {
 		return nil, err
 	}

@@ -1,6 +1,7 @@
 package gika
 
 import (
+	"io"
 	"os"
 
 	"github.com/asalih/gika/pkg/matchers"
@@ -8,43 +9,70 @@ import (
 )
 
 type Gika struct {
-	context        *types.GikaContext
+	handle *Handle
+}
+
+type Handle struct {
+	gikaContext    *types.GikaContext
 	contentHandler types.IContentHandler
 }
 
-//New creates new Gika instance with given path
-func New(contentHandler types.IContentHandler, path string) (*Gika, error) {
-	buf, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
+func New(contentHandler types.IContentHandler) *Gika {
 	//register custom matchers
 	matchers.Register()
 
-	ctx, err := types.NewGikaContext(path, buf)
+	ctx := types.NewContext()
+
+	return &Gika{
+		handle: &Handle{
+			gikaContext:    ctx,
+			contentHandler: contentHandler,
+		},
+	}
+}
+
+//WithPath sets the path of the file to be processed
+func (g *Gika) WithPath(path string) (*Handle, error) {
+	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Gika{
-		contentHandler: contentHandler,
-		context:        ctx,
-	}, nil
-}
-
-func NewWithBuffer(contentHandler types.IContentHandler, buf []byte) (*Gika, error) {
-	ctx, err := types.NewGikaContext("", buf)
+	stat, err := file.Stat()
 	if err != nil {
 		return nil, err
 	}
 
-	return &Gika{
-		contentHandler: contentHandler,
-		context:        ctx,
-	}, nil
+	_, err = g.handle.gikaContext.Update(path, stat.Size(), file)
+	if err != nil {
+		return nil, err
+	}
+
+	return g.handle, nil
 }
 
-func (g *Gika) Read() (types.Entries, error) {
-	return g.contentHandler.HandleContent(g.context)
+//WithReader sets the reader of the file to be processed
+func (g *Gika) WithReader(size int64, reader io.ReadSeekCloser) (*Handle, error) {
+	_, err := g.handle.gikaContext.Update("", size, reader)
+	if err != nil {
+		return nil, err
+	}
+
+	return g.handle, nil
+}
+
+func (g *Handle) Read() (types.Entries, error) {
+	if g.contentHandler == nil {
+		return nil, types.ErrContentHandlerNotSet
+	}
+
+	if g.gikaContext == nil {
+		return nil, types.ErrContextNotSet
+	}
+
+	return g.contentHandler.HandleContent(g.gikaContext)
+}
+
+func (g *Handle) Close() error {
+	return g.gikaContext.Close()
 }

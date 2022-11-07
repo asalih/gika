@@ -11,9 +11,7 @@ type XZContentHandler struct {
 }
 
 func (z *XZContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	archive, err := xz.NewReader(rdr)
+	archive, err := xz.NewReader(context.Reader)
 	if err != nil {
 		return nil, err
 	}

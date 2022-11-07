@@ -11,9 +11,7 @@ type ZstdContentHandler struct {
 }
 
 func (t *ZstdContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	decoder, err := zstd.NewReader(rdr, zstd.WithDecoderConcurrency(0))
+	decoder, err := zstd.NewReader(context.Reader, zstd.WithDecoderConcurrency(0))
 	if err != nil {
 		return nil, err
 	}

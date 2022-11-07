@@ -13,9 +13,7 @@ type PDFContentHandler struct {
 }
 
 func (t *PDFContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	pdfContext, err := api.ReadContext(rdr, nil)
+	pdfContext, err := api.ReadContext(context.Reader, nil)
 	if err != nil {
 		return nil, err
 	}

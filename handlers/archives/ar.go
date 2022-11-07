@@ -12,9 +12,7 @@ type ARContentHandler struct {
 }
 
 func (t *ARContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	tr := ar.NewReader(rdr)
+	tr := ar.NewReader(context.Reader)
 
 	entries := make(types.Entries)
 

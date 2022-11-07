@@ -3,6 +3,7 @@ package archives
 import (
 	"archive/zip"
 	"bytes"
+	"os"
 
 	"github.com/asalih/gika/types"
 )
@@ -11,9 +12,13 @@ type ZipContentHandler struct {
 }
 
 func (z *ZipContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
 
-	archive, err := zip.NewReader(rdr, int64(rdr.Len()))
+	rdr, isRdrAt := context.ReaderAt()
+	if !isRdrAt {
+		return nil, os.ErrInvalid
+	}
+
+	archive, err := zip.NewReader(rdr, context.Size)
 	if err != nil {
 		return nil, err
 	}

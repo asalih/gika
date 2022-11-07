@@ -11,11 +11,9 @@ type GzipContentHandler struct {
 }
 
 func (t *GzipContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	gzr, err := gzip.NewReader(rdr)
+	gzr, err := gzip.NewReader(context.Reader)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	defer gzr.Close()
 

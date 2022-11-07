@@ -11,9 +11,7 @@ type BzipContentHandler struct {
 }
 
 func (t *BzipContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	bz := bzip2.NewReader(rdr)
+	bz := bzip2.NewReader(context.Reader)
 
 	entries := make(types.Entries)
 

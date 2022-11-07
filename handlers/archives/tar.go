@@ -12,9 +12,8 @@ type TarContentHandler struct {
 }
 
 func (t *TarContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
 
-	tr := tar.NewReader(rdr)
+	tr := tar.NewReader(context.Reader)
 
 	entries := make(types.Entries)
 

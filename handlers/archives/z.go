@@ -11,9 +11,7 @@ type LzwContentHandler struct {
 }
 
 func (t *LzwContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
-
-	comp, err := dcompress.NewReader(rdr)
+	comp, err := dcompress.NewReader(context.Reader)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,8 @@ top layer of reading files
 - iso - application/x-iso9660-image
 - lz - application/x-lzip
 - a - application/x-unix-archive
+- cab - application/vnd.ms-cab-compressed
+
 - docx - application/vnd.openxmlformats-officedocument.wordprocessingml.document
 - xlsx - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 - pdf - application/pdf

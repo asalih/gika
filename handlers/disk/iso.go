@@ -2,6 +2,7 @@ package disk
 
 import (
 	"bytes"
+	"os"
 	"strings"
 
 	"github.com/asalih/gika/types"
@@ -12,7 +13,10 @@ type ISOContentHandler struct {
 }
 
 func (t *ISOContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
-	rdr := bytes.NewReader(context.RawBuffer)
+	rdr, isRdrAt := context.ReaderAt()
+	if !isRdrAt {
+		return nil, os.ErrInvalid
+	}
 
 	iso, err := iso9660.OpenImage(rdr)
 	if err != nil {

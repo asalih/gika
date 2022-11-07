@@ -32,25 +32,29 @@ func main() {
 	// defer fs.Close()
 	// fs.Write(buf.Bytes())
 
-	files, err := filepath.Glob("testdata/exec/*.msi")
+	files, err := filepath.Glob("testdata/archives/*.json")
 	if err != nil {
 		panic(err)
 	}
+
+	gk := gika.New(&gkh.AutoDetectContentHandler{})
 
 	for _, file := range files {
 		if file == "testdata/.DS_Store" {
 			continue
 		}
 
-		g, err := gika.New(&gkh.AutoDetectContentHandler{}, file)
+		handle, err := gk.WithPath(file)
 		if err != nil {
 			panic(err)
 		}
 
-		entries, err := g.Read()
+		entries, err := handle.Read()
 		if err != nil {
 			panic(err)
 		}
+
+		handle.Close()
 
 		fmt.Println(entries)
 	}

@@ -12,8 +12,8 @@ type LzipContentHandler struct {
 
 func (z *LzipContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
 	//TODO: lzip not working, need to fix
-	rdr := bytes.NewReader(context.RawBuffer)
-	lzr, err := lzip.Decode(rdr)
+
+	lzr, err := lzip.Decode(context.Reader)
 	if err != nil {
 		return nil, err
 	}

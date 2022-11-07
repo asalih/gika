@@ -1,7 +1,6 @@
 package archives
 
 import (
-	"bytes"
 	"io"
 
 	"github.com/asalih/gika/types"
@@ -13,9 +12,8 @@ type UnarrContentHandler struct {
 
 func (u *UnarrContentHandler) HandleContent(context *types.GikaContext) (types.Entries, error) {
 	entries := make(types.Entries)
-	rdr := bytes.NewReader(context.RawBuffer)
 
-	archive, err := unarr.NewArchiveFromReader(rdr)
+	archive, err := unarr.NewArchiveFromReader(context.Reader)
 	if err != nil {
 		return nil, err
 	}
